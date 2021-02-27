@@ -1,0 +1,13 @@
+version: '3.6'
+
+services:
+  python:
+    build:
+      context: .
+      dockerfile: Dockerfile_flask
+    tty: true
+    volumes:
+      - ./:/app
+    working_dir: /app
+    env_file:
+      - .env
