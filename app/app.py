@@ -1,6 +1,12 @@
+import os
+
 from flask import Flask
 
-flask_app = Flask(__name__)
+def create_flask_app():
+    app = Flask(__name__)
 
-if __name__ == '__main__':
-    flask_app.run()
+    app.env_vars = os.environ
+
+    return app
+
+flask_app = create_flask_app()
