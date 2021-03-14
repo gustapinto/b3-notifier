@@ -4,7 +4,7 @@ from requests import get
 
 from app.app import flask_app
 
-class BaseFetcher(ABC):
+class BaseJsonFetcher(ABC):
     def __init__(self):
         self.fetched_data = []
 
@@ -26,10 +26,10 @@ class BaseFetcher(ABC):
 
             self.fetched_data.append(json_response)
 
-        return self.fetched_data
+        return (self.fetched_data, self.stocks_list)
 
 
-class HgBrasilFetcher(BaseFetcher):
+class HgBrasilFetcher(BaseJsonFetcher):
     @property
     def api_base_url(self):
         self.base_url = flask_app.env_vars['HG_BRASIL_BASE_URL']
@@ -39,6 +39,6 @@ class HgBrasilFetcher(BaseFetcher):
 
     @property
     def stocks_list(self):
-        self.stocks_string = flask_app.env_vars['HG_BRASIL_STOCK']
+        self.stocks_string = flask_app.env_vars['HG_BRASIL_STOCKS']
 
         return self.stocks_string.split('.')
