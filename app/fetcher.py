@@ -4,6 +4,7 @@ from requests import get
 
 from app.app import flask_app
 
+
 class BaseJsonFetcher(ABC):
     def __init__(self):
         self.fetched_data = []

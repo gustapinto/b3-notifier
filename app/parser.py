@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class BaseJsonParser(ABC):
     def __init__(self):
         self.parsed_data = []
