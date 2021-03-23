@@ -4,7 +4,7 @@ services:
   python:
     build:
       context: .
-      dockerfile: Dockerfile_flask
+      dockerfile: Dockerfile
     tty: true
     volumes:
       - ./:/code

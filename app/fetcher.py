@@ -1,8 +1,10 @@
+import os
 from abc import ABC, abstractmethod
 
 from requests import get
 
-from app.app import flask_app
+
+env_vars = os.environ
 
 
 class BaseJsonFetcher(ABC):
@@ -33,13 +35,13 @@ class BaseJsonFetcher(ABC):
 class HgBrasilFetcher(BaseJsonFetcher):
     @property
     def api_base_url(self):
-        self.base_url = flask_app.env_vars['HG_BRASIL_BASE_URL']
-        self.key = flask_app.env_vars['HG_BRASIL_KEY']
+        self.base_url = env_vars['HG_BRASIL_BASE_URL']
+        self.key = env_vars['HG_BRASIL_KEY']
 
         return f'{self.base_url}?key={self.key}&symbol='
 
     @property
     def stocks_list(self):
-        self.stocks_string = flask_app.env_vars['HG_BRASIL_STOCKS']
+        self.stocks_string = env_vars['HG_BRASIL_STOCKS']
 
         return self.stocks_string.split('.')

@@ -3,22 +3,23 @@ from smtpd import SMTPServer
 from smtplib import SMTP_SSL
 from ssl import create_default_context
 
-from app.app import flask_app
+
+env_vars = os.environ
 
 
 class BaseMailer(ABC):
     def __init__(self):
-        smtp_local_host = flask_app.env_vars['SMTP_LOCAL_HOST']
-        smtp_local_port = int(flask_app.env_vars['SMTP_LOCAL_PORT'])
-        smtp_remote_host = flask_app.env_vars['SMTP_REMOTE_HOST']
-        smtp_remote_port = int(flask_app.env_vars['SMTP_REMOTE_PORT'])
+        smtp_local_host = env_vars['SMTP_LOCAL_HOST']
+        smtp_local_port = int(env_vars['SMTP_LOCAL_PORT'])
+        smtp_remote_host = env_vars['SMTP_REMOTE_HOST']
+        smtp_remote_port = int(env_vars['SMTP_REMOTE_PORT'])
 
         self.smtp_local_address = (smtp_local_host, smtp_local_port)
         self.smtp_remote_address = (smtp_remote_host, smtp_remote_port)
 
-        self.sender_email = flask_app.env_vars['SENDER_EMAIL']
-        self.sender_password = flask_app.env_vars['SENDER_PASSWORD']
-        self.receiver_email = flask_app.env_vars['RECEIVER_EMAIL']
+        self.sender_email = env_vars['SENDER_EMAIL']
+        self.sender_password = env_vars['SENDER_PASSWORD']
+        self.receiver_email = env_vars['RECEIVER_EMAIL']
 
         self.parsed_data = []
 
