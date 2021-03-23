@@ -35,7 +35,7 @@ class HgBrasilFetcher(BaseJsonFetcher):
         self.base_url = flask_app.env_vars['HG_BRASIL_BASE_URL']
         self.key = flask_app.env_vars['HG_BRASIL_KEY']
 
-        return self.base_url + '?key=' + self.key + '&symbol='
+        return f'{self.base_url}?key={self.key}&symbol='
 
     @property
     def stocks_list(self):
