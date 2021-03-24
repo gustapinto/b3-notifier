@@ -17,6 +17,9 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
+    volumes:
+      - ./:/code
+    working_dir: /code
     command: celery -A app.tasks worker -B --loglevel=INFO
     depends_on:
       - python

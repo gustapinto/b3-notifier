@@ -32,7 +32,7 @@ class BaseMailer(ABC):
         pass
 
     def initialize_smtp_server(self):
-        SMTPServer(self.smtp_local_address, self.smtp_remote_address)
+        self.smtp_server = SMTPServer(self.smtp_local_address, self.smtp_remote_address)
 
     def send_email(self, parsed_data):
         self.parsed_data = parsed_data
@@ -42,6 +42,9 @@ class BaseMailer(ABC):
         with SMTP_SSL('smtp.gmail.com', 465, context=context) as server:
             server.login(self.sender_email, self.sender_password)
             server.sendmail(self.sender_email, self.receiver_email, self.email_body)
+            server.quit()
+
+        self.smtp_server.close()
 
 
 class HgBrasilMailer(BaseMailer):

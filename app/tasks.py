@@ -1,4 +1,5 @@
 import logging
+import os
 
 from celery import Celery
 
@@ -7,13 +8,14 @@ from app.parser import HgBrasilParser
 from app.mailer import HgBrasilMailer
 
 
+env_vars = os.environ
+
 logging.basicConfig(filename='logs/task.log')
 
 celery_app = Celery('tasks', broker='redis://redis:6379')
 
 @celery_app.task
 def hg_brasil_task():
-    try:
         fetcher = HgBrasilFetcher()
         parser = HgBrasilParser()
         mailer = HgBrasilMailer()
@@ -22,10 +24,15 @@ def hg_brasil_task():
         parsed_data = parser.parse_data(fetched_data)
 
         mailer.send_email(parsed_data)
-    except Exception as e:
-        logging.info(e)
 
 def run_tasks():
-    hg_brasil_task.delay()
+    default_task_schedule = int(env_vars['TASKS_SCHEDULE_IN_SECONDS'])
+
+    celery_app.conf.beat_schedule = {
+        'hg_brasil': {
+            'task': 'app.tasks.hg_brasil_task',
+            'schedule': default_task_schedule,
+        },
+    }
 
 run_tasks()
