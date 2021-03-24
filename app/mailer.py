@@ -1,3 +1,4 @@
+import os
 from abc import ABC, abstractmethod
 from smtpd import SMTPServer
 from smtplib import SMTP_SSL
