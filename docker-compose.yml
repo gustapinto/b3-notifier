@@ -20,7 +20,7 @@ services:
     volumes:
       - ./:/code
     working_dir: /code
-    command: celery -A app.tasks worker -B --loglevel=INFO
+    command: celery -A app.celery worker -B --loglevel=INFO
     depends_on:
       - python
       - redis
