@@ -4,10 +4,10 @@ A email notifier for B3 stock prices 💸 📈
 
 ## Installation
 
- 1. Clone this repository
- 2. Copy .env.sample, rename it to .env and populate it with data
- 3. Use `docker-compose up --build` to start the necessary containers and active the *Celery Schedule*
- 4. Wait to receive some awesome emails with prices 😃
+1.  Clone this repository  
+2.  Copy .env.sample, rename it to .env and populate it with data  
+3.  Use `docker-compose up --build` to start the necessary containers and active the *Celery Schedule*  
+4.  Wait to receive some awesome emails with prices 😃  
 
 ## Supported APIs
 
